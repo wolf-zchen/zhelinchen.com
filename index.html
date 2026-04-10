@@ -302,37 +302,8 @@
       <h2 class="section-label">Latest Videos</h2>
       <a class="section-link" href="https://www.youtube.com/@zzzhelin_chen" target="_blank">All videos &rarr;</a>
     </div>
-    <div class="videos-grid">
-      <a class="video-card" href="https://youtu.be/xLA2ruXOuEA" target="_blank" style="text-decoration:none;color:inherit;">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/xLA2ruXOuEA/hqdefault.jpg" alt="How to use Gemini to build data crawler" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" />
-          <div class="play"></div>
-        </div>
-        <div class="video-info">
-          <div class="video-category">AI Tools</div>
-          <div class="video-title">How to Use Gemini to Build a Data Crawler</div>
-        </div>
-      </a>
-      <a class="video-card" href="https://youtu.be/ZIHbardaC0c" target="_blank" style="text-decoration:none;color:inherit;">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/ZIHbardaC0c/hqdefault.jpg" alt="Unlocking File Efficiency: Using ChatGPT for Automated File Management" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" />
-          <div class="play"></div>
-        </div>
-        <div class="video-info">
-          <div class="video-category">Project Build</div>
-          <div class="video-title">Unlocking File Efficiency: Using ChatGPT for Automated File Management</div>
-        </div>
-      </a>
-      <a class="video-card" href="https://youtu.be/G2J_L-xiiss" target="_blank" style="text-decoration:none;color:inherit;">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/G2J_L-xiiss/hqdefault.jpg" alt="Notion Plant Care Hub, Leaf & Bloom" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" />
-          <div class="play"></div>
-        </div>
-        <div class="video-info">
-          <div class="video-category">Project Build</div>
-          <div class="video-title">Notion Plant Care Hub, Leaf &amp; Bloom</div>
-        </div>
-      </a>
+    <div class="videos-grid" id="videos-container">
+      <div style="grid-column:1/-1;padding:2rem 0;color:var(--muted);font-size:0.9rem;">Loading latest videos…</div>
     </div>
   </div>
 </section>
@@ -345,47 +316,8 @@
       <h2 class="section-label">Recent Writing</h2>
       <a class="section-link" href="https://medium.com/@zhelinchen91" target="_blank">All articles &rarr;</a>
     </div>
-    <div class="articles-list">
-      <a class="article-row" href="https://medium.com/@zhelinchen91/how-to-use-gemini-to-create-website-crawler-15410ac4de1e" target="_blank">
-        <div class="article-num">01</div>
-        <div class="article-meta">
-          <strong>How to Use Gemini to Create a Website Crawler</strong>
-          <span>Medium &middot; 5 min read &middot; Jul 2025</span>
-        </div>
-        <span class="article-badge badge-ai">AI</span>
-      </a>
-      <a class="article-row" href="https://medium.com/@zhelinchen91/not-all-blockchains-are-created-equal-a-simple-guide-to-public-private-and-consortium-chains-f2917ef2a94b" target="_blank">
-        <div class="article-num">02</div>
-        <div class="article-meta">
-          <strong>Not All Blockchains Are Created Equal</strong>
-          <span>Medium &middot; 3 min read &middot; May 2025</span>
-        </div>
-        <span class="article-badge badge-tech">Tech</span>
-      </a>
-      <a class="article-row" href="https://medium.com/@zhelinchen91/blockchains-quiet-revolution-how-distributed-ledgers-are-rewiring-our-economic-dna-9ae1f79f7dfe" target="_blank">
-        <div class="article-num">03</div>
-        <div class="article-meta">
-          <strong>Blockchain's Quiet Revolution: How Distributed Ledgers Are Rewiring Our Economic DNA</strong>
-          <span>Medium &middot; 4 min read &middot; May 2025</span>
-        </div>
-        <span class="article-badge badge-tech">Tech</span>
-      </a>
-      <a class="article-row" href="https://medium.com/@zhelinchen91/is-bitcoin-really-a-currency-a-deep-dive-into-its-functionality-and-feasibility-cbb05a2e213a" target="_blank">
-        <div class="article-num">04</div>
-        <div class="article-meta">
-          <strong>Is Bitcoin Really a Currency? A Deep Dive into Its Functionality and Feasibility</strong>
-          <span>Medium &middot; 3 min read &middot; Apr 2025</span>
-        </div>
-        <span class="article-badge badge-finance">Finance</span>
-      </a>
-      <a class="article-row" href="https://medium.com/@zhelinchen91/cash-or-credit-which-real-estate-strategy-yields-greater-returns-dfaa46a461dd" target="_blank">
-        <div class="article-num">05</div>
-        <div class="article-meta">
-          <strong>Cash or Credit: Which Real Estate Strategy Yields Greater Returns?</strong>
-          <span>Medium &middot; 6 min read &middot; Aug 2024</span>
-        </div>
-        <span class="article-badge badge-finance">Finance</span>
-      </a>
+    <div class="articles-list" id="articles-container">
+      <div style="padding:2rem 0;color:var(--muted);font-size:0.9rem;">Loading latest articles…</div>
     </div>
   </div>
 </section>
@@ -514,6 +446,85 @@
     backToTop.classList.toggle('visible', window.scrollY > 400);
   });
   backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ── RSS AUTO-UPDATE ──────────────────────────────────────────────
+  const RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
+  const YT_CHANNEL = 'UC01D4ZoKaf-sOv60ZDfWrRQ';
+
+  function getBadge(categories, title) {
+    const text = ((categories || []).join(' ') + ' ' + title).toLowerCase();
+    if (/\bai\b|machine.learning|gpt|llm|gemini|chatgpt|openai/.test(text))  return { cls: 'badge-ai',      label: 'AI' };
+    if (/blockchain|crypto|web3|defi/.test(text))                             return { cls: 'badge-tech',    label: 'Tech' };
+    if (/bitcoin|finance|invest|real.estate|stock|money/.test(text))         return { cls: 'badge-finance', label: 'Finance' };
+    if (/book|review|reading/.test(text))                                     return { cls: 'badge-book',    label: 'Book' };
+    if (/parent|child|kid|toddler|baby/.test(text))                           return { cls: 'badge-parenting', label: 'Parenting' };
+    if (/project|build|automat|notion|workflow/.test(text))                   return { cls: 'badge-project', label: 'Project' };
+    if (/course|learn|certif/.test(text))                                     return { cls: 'badge-course',  label: 'Course' };
+    return { cls: 'badge-tech', label: (categories && categories[0]) || 'Article' };
+  }
+
+  async function loadVideos() {
+    const el = document.getElementById('videos-container');
+    try {
+      const url = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL}`;
+      const res = await fetch(RSS2JSON + encodeURIComponent(url));
+      const data = await res.json();
+      if (data.status !== 'ok' || !data.items.length) throw new Error();
+      el.innerHTML = data.items.slice(0, 3).map(v => {
+        const id = new URL(v.link).searchParams.get('v');
+        const thumb = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+        const date = new Date(v.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        return `
+          <a class="video-card" href="${v.link}" target="_blank" style="text-decoration:none;color:inherit;">
+            <div class="video-thumb">
+              <img src="${thumb}" alt="${v.title}" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;" />
+              <div class="play"></div>
+            </div>
+            <div class="video-info">
+              <div class="video-category">${date}</div>
+              <div class="video-title">${v.title}</div>
+            </div>
+          </a>`;
+      }).join('');
+    } catch {
+      el.innerHTML = `<div style="grid-column:1/-1;padding:1rem 0;color:var(--muted);font-size:0.9rem;">
+        Could not load videos. <a href="https://www.youtube.com/@zzzhelin_chen" target="_blank" style="color:var(--accent);">Watch on YouTube →</a>
+      </div>`;
+    }
+  }
+
+  async function loadArticles() {
+    const el = document.getElementById('articles-container');
+    try {
+      const url = 'https://medium.com/feed/@zhelinchen91';
+      const res = await fetch(RSS2JSON + encodeURIComponent(url));
+      const data = await res.json();
+      if (data.status !== 'ok' || !data.items.length) throw new Error();
+      el.innerHTML = data.items.slice(0, 5).map((a, i) => {
+        const date = new Date(a.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        const words = (a.description || '').replace(/<[^>]+>/g, '').split(/\s+/).length;
+        const mins = Math.max(1, Math.round(words / 200));
+        const badge = getBadge(a.categories, a.title);
+        const num = String(i + 1).padStart(2, '0');
+        return `
+          <a class="article-row" href="${a.link}" target="_blank">
+            <div class="article-num">${num}</div>
+            <div class="article-meta">
+              <strong>${a.title}</strong>
+              <span>Medium &middot; ${mins} min read &middot; ${date}</span>
+            </div>
+            <span class="article-badge ${badge.cls}">${badge.label}</span>
+          </a>`;
+      }).join('');
+    } catch {
+      el.innerHTML = `<div style="padding:1rem 0;color:var(--muted);font-size:0.9rem;">
+        Could not load articles. <a href="https://medium.com/@zhelinchen91" target="_blank" style="color:var(--accent);">Read on Medium →</a>
+      </div>`;
+    }
+  }
+
+  loadVideos();
+  loadArticles();
 </script>
 </body>
 </html>
