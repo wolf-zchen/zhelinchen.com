@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zhelin Chen, Ph.D. — AI Researcher &amp; Creator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F5F0; --ink: #1A1814; --muted: #7A756C;
+      --accent: #C8471A; --accent2: #2D5F8A;
+      --border: rgba(26,24,20,0.1); --card: #FFFFFF;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    nav .inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    .hero { padding: 6rem 0 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-tag { display: inline-block; font-size: 0.73rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+    .hero-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-bio { font-size: 1.05rem; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; max-width: 420px; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.7rem 1.4rem; border-radius: 4px; font-size: 0.85rem; font-weight: 500; font-family: var(--sans); text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid rgba(26,24,20,0.2); }
+    .btn-ghost:hover { border-color: var(--ink); }
+    .cred-strip { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .cred-badge { font-size: 0.78rem; font-weight: 500; color: var(--muted); }
+    .cred-sep { color: rgba(26,24,20,0.2); }
+
+    .hero-visual { display: flex; flex-direction: column; gap: 1rem; }
+    .hero-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; box-shadow: 0 2px 16px rgba(26,24,20,0.06); transition: transform 0.25s, box-shadow 0.25s; }
+    .hero-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,24,20,0.1); }
+    .hero-card:nth-child(2) { margin-left: 2rem; }
+    .hero-card-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+    .icon-yt { background: #FFF0EC; } .icon-ai { background: #EBF3FA; } .icon-book { background: #F0F7EE; }
+    .hero-card-meta strong { display: block; font-size: 0.9rem; font-weight: 500; }
+    .hero-card-meta span { font-size: 0.78rem; color: var(--muted); }
+
+    /* SECTIONS */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+    section { padding: 4rem 0; }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem; }
+    .section-label { font-family: var(--serif); font-size: 1.7rem; letter-spacing: -0.02em; }
+    .section-link { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); transition: color 0.2s, border-color 0.2s; }
+    .section-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* PILLARS */
+    .pillars { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .pillar { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; transition: transform 0.25s, box-shadow 0.25s; }
+    .pillar:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(26,24,20,0.09); }
+    .pillar-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+    .pillar-title { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .pillar-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+    .pillar-tag { display: inline-block; margin-top: 1rem; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); background: #FFF0EC; border-radius: 4px; padding: 0.2rem 0.5rem; }
+    .pillar-tag.blue { color: var(--accent2); background: #EBF3FA; }
+    .pillar-tag.green { color: #2D7A4F; background: #F0F7EE; }
+
+    /* VIDEOS */
+    .videos-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .video-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+    .video-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(26,24,20,0.09); }
+    .video-thumb { background: linear-gradient(135deg, #1A1814 0%, #3A3530 100%); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .video-thumb-label { color: rgba(255,255,255,0.15); font-family: var(--serif); font-size: 1.4rem; text-align: center; padding: 1rem; line-height: 1.2; }
+    .play { position: absolute; width: 44px; height: 44px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .play::after { content: ''; border-left: 14px solid #fff; border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 3px; }
+    .video-info { padding: 1.1rem 1.25rem; }
+    .video-category { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+    .video-title { font-weight: 500; font-size: 0.9rem; line-height: 1.45; }
+    .placeholder-note { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); font-style: italic; }
+
+    /* ARTICLES */
+    .articles-list { display: flex; flex-direction: column; }
+    .article-row { display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: center; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+    .article-row:first-child { border-top: 1px solid var(--border); }
+    .article-num { font-family: var(--serif); font-size: 1rem; color: rgba(26,24,20,0.15); width: 2rem; }
+    .article-meta strong { display: block; font-size: 0.95rem; font-weight: 500; }
+    .article-meta span { font-size: 0.8rem; color: var(--muted); }
+    .article-badge { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 4px; white-space: nowrap; }
+    .badge-ai { background: #EBF3FA; color: var(--accent2); }
+    .badge-book { background: #F0F7EE; color: #2D7A4F; }
+    .badge-parenting { background: #FDF4FF; color: #7C3B8A; }
+    .badge-project { background: #FFF0EC; color: var(--accent); }
+    .badge-course { background: #FFF8E8; color: #946C00; }
+
+    /* NEWSLETTER */
+    .newsletter-box { background: var(--ink); color: var(--bg); border-radius: 16px; padding: 3rem; text-align: center; }
+    .newsletter-box h2 { font-family: var(--serif); font-size: 2rem; margin-bottom: 0.75rem; }
+    .newsletter-box p { color: rgba(247,245,240,0.65); font-size: 0.95rem; margin-bottom: 2rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .newsletter-form { display: flex; gap: 0.75rem; max-width: 420px; margin: 0 auto; }
+    .newsletter-form input { flex: 1; padding: 0.75rem 1rem; border-radius: 6px; border: 1px solid rgba(247,245,240,0.2); background: rgba(247,245,240,0.08); color: var(--bg); font-family: var(--sans); font-size: 0.9rem; outline: none; }
+    .newsletter-form input::placeholder { color: rgba(247,245,240,0.35); }
+    .newsletter-form button { padding: 0.75rem 1.5rem; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-family: var(--sans); font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
+    .newsletter-form button:hover { opacity: 0.85; }
+
+    /* ABOUT */
+    .about-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text h2 { font-family: var(--serif); font-size: 2rem; margin-bottom: 1rem; }
+    .about-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 0.85rem; }
+    .about-text strong { color: var(--ink); font-weight: 600; }
+    .about-stats { display: flex; gap: 2rem; margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .stat-num { font-family: var(--serif); font-size: 1.6rem; line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; }
+    .about-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .about-link-row { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--ink); transition: all 0.2s; }
+    .about-link-row:hover { border-color: var(--ink); transform: translateX(4px); }
+    .about-link-label { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; font-weight: 500; }
+    .about-link-arrow { color: var(--muted); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 0; display: flex; align-items: center; justify-content: space-between; }
+    .footer-left { font-size: 0.82rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ink); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 0 2rem; }
+      .hero-card:nth-child(2) { margin-left: 0; }
+      .pillars { grid-template-columns: 1fr; }
+      .videos-grid { grid-template-columns: 1fr; }
+      .about-strip { grid-template-columns: 1fr; gap: 2rem; }
+      .newsletter-form { flex-direction: column; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      nav .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a class="nav-logo" href="#">Zhelin Chen, Ph.D.</a>
+    <ul class="nav-links">
+      <li><a href="#content">Content</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-text">
+      <span class="hero-tag">&#10022; Research Scientist &middot; AI Creator &middot; Builder</span>
+      <h1 class="hero-title">AI from the lab<br/>to <em>real life</em></h1>
+      <p class="hero-bio">
+        I'm a Senior Staff Research Scientist with a PhD from UIUC. By day I build AI systems at scale.
+        Outside the lab I make YouTube videos on practical AI, share book and course notes on Medium,
+        and explore how to raise my little one in an AI-powered world.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://www.youtube.com/@zzzhelin_chen" target="_blank">&#9654; Watch on YouTube</a>
+        <a class="btn btn-ghost" href="https://medium.com/@zhelinchen91" target="_blank">Read on Medium</a>
+      </div>
+      <div class="cred-strip">
+        <span class="cred-badge">&#127891; PhD &middot; UIUC</span>
+        <span class="cred-sep">&middot;</span>
+        <span class="cred-badge">&#128300; Sr. Staff Research Scientist</span>
+        <span class="cred-sep">&middot;</span>
+        <span class="cred-badge">&#128205; Chicago, IL</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-icon icon-yt">&#128249;</div>
+        <div class="hero-card-meta">
+          <strong>YouTube Videos</strong>
+          <span>AI tools, automation &amp; project builds</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon icon-ai">&#129302;</div>
+        <div class="hero-card-meta">
+          <strong>AI for Parenting</strong>
+          <span>Raising &amp; educating kids with AI</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon icon-book">&#128218;</div>
+        <div class="hero-card-meta">
+          <strong>Books &amp; Courses</strong>
+          <span>Notes &amp; reflections on Medium</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider" />
+
+<section id="content">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-label">What I cover</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-icon">&#129302;</div>
+        <div class="pillar-title">AI &amp; Automation</div>
+        <p class="pillar-desc">Practical AI tools and workflows — grounded in real research experience, translated for everyday use.</p>
+        <span class="pillar-tag">YouTube &middot; Medium</span>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">&#128736;</div>
+        <div class="pillar-title">Project Builds</div>
+        <p class="pillar-desc">Step-by-step projects using AI to simplify life — budgets, routines, research assistants, custom programs and more.</p>
+        <span class="pillar-tag blue">YouTube</span>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">&#128066;</div>
+        <div class="pillar-title">AI for Parenting</div>
+        <p class="pillar-desc">Using AI to educate and inspire your little one — from learning tools to age-appropriate technology exploration.</p>
+        <span class="pillar-tag green">New &amp; Growing</span>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">&#128214;</div>
+        <div class="pillar-title">Book Notes</div>
+        <p class="pillar-desc">Distilled takeaways from the books I read — insights that actually changed how I think and act.</p>
+        <span class="pillar-tag blue">Medium</span>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">&#127891;</div>
+        <div class="pillar-title">Course Reviews</div>
+        <p class="pillar-desc">Honest notes on online courses I've taken — what was worth it, what I still use, and what I'd skip.</p>
+        <span class="pillar-tag blue">Medium</span>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">&#128161;</div>
+        <div class="pillar-title">Thoughts on AI</div>
+        <p class="pillar-desc">Essays on where AI is heading and what it means for everyday life — from someone who builds it professionally.</p>
+        <span class="pillar-tag">Medium</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="videos">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-label">Latest Videos</h2>
+      <a class="section-link" href="https://www.youtube.com/@zzzhelin_chen" target="_blank">All videos &rarr;</a>
+    </div>
+    <div class="videos-grid">
+      <a class="video-card" href="https://www.youtube.com/@zzzhelin_chen" target="_blank" style="text-decoration:none;color:inherit;">
+        <div class="video-thumb">
+          <div class="video-thumb-label">Build a Personal AI Assistant</div>
+          <div class="play"></div>
+        </div>
+        <div class="video-info">
+          <div class="video-category">Project Build</div>
+          <div class="video-title">Build a Personal AI Assistant in 20 Minutes</div>
+        </div>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/@zzzhelin_chen" target="_blank" style="text-decoration:none;color:inherit;">
+        <div class="video-thumb" style="background: linear-gradient(135deg,#0A2540,#1A4F8A);">
+          <div class="video-thumb-label">Top AI Tools I Use Every Day</div>
+          <div class="play"></div>
+        </div>
+        <div class="video-info">
+          <div class="video-category">AI Tools</div>
+          <div class="video-title">Top 5 AI Tools I Actually Use Every Day</div>
+        </div>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/@zzzhelin_chen" target="_blank" style="text-decoration:none;color:inherit;">
+        <div class="video-thumb" style="background: linear-gradient(135deg,#1A2E1A,#2D6040);">
+          <div class="video-thumb-label">Teaching My Toddler with AI</div>
+          <div class="play"></div>
+        </div>
+        <div class="video-info">
+          <div class="video-category">AI Parenting</div>
+          <div class="video-title">How I'm Using AI to Teach My Toddler</div>
+        </div>
+      </a>
+    </div>
+    <p class="placeholder-note">&#9998; Replace these with your actual video titles and YouTube links.</p>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section id="writing">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-label">Recent Writing</h2>
+      <a class="section-link" href="https://medium.com/@zhelinchen91" target="_blank">All articles &rarr;</a>
+    </div>
+    <div class="articles-list">
+      <div class="article-row">
+        <div class="article-num">01</div>
+        <div class="article-meta">
+          <strong>What I Learned After Using ChatGPT for 6 Months Straight</strong>
+          <span>Medium &middot; 5 min read</span>
+        </div>
+        <span class="article-badge badge-ai">AI</span>
+      </div>
+      <div class="article-row">
+        <div class="article-num">02</div>
+        <div class="article-meta">
+          <strong>My Notes on "The Coming Wave" by Mustafa Suleyman</strong>
+          <span>Medium &middot; 8 min read</span>
+        </div>
+        <span class="article-badge badge-book">Book</span>
+      </div>
+      <div class="article-row">
+        <div class="article-num">03</div>
+        <div class="article-meta">
+          <strong>Raising a Curious Kid in the Age of AI</strong>
+          <span>Medium &middot; 6 min read</span>
+        </div>
+        <span class="article-badge badge-parenting">Parenting</span>
+      </div>
+      <div class="article-row">
+        <div class="article-num">04</div>
+        <div class="article-meta">
+          <strong>I Automated My Morning Routine — Here's What Happened</strong>
+          <span>Medium &middot; 4 min read</span>
+        </div>
+        <span class="article-badge badge-project">Project</span>
+      </div>
+      <div class="article-row">
+        <div class="article-num">05</div>
+        <div class="article-meta">
+          <strong>Review: Andrew Ng's "AI for Everyone" Course</strong>
+          <span>Medium &middot; 5 min read</span>
+        </div>
+        <span class="article-badge badge-course">Course</span>
+      </div>
+    </div>
+    <p class="placeholder-note">&#9998; Replace these with your actual Medium article titles and links.</p>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<section>
+  <div class="container">
+    <div class="newsletter-box">
+      <h2>Stay in the loop</h2>
+      <p>No fluff. Practical AI ideas, new videos, and book notes — from someone who builds AI for a living.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="you@example.com" id="nl-email" />
+        <button id="nl-btn">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-strip">
+      <div class="about-text">
+        <h2>Hey, I'm Zhelin &#128075;</h2>
+        <p>
+          I'm a <strong>Senior Staff Research Scientist</strong> at Epsilon, Publicis Groupe in Chicago,
+          where I design and ship AI-powered bidding and optimization systems running across thousands of
+          ad campaigns — improving client revenue, reach, and efficiency at scale.
+        </p>
+        <p>
+          I hold a <strong>PhD in Mechanical Engineering</strong>, an <strong>MS in Applied Mathematics</strong>,
+          and an <strong>MS in Mechanical Engineering</strong> — all from the University of Illinois
+          Urbana-Champaign (UIUC). My doctoral research on optimal control
+          earned a <strong>Best Paper Award</strong> (top 9 of 504 submissions). I also served as an
+          Adjunct Research Assistant Professor at UIUC, mentoring graduate students and publishing on
+          control theory and robotic applications.
+        </p>
+        <p>
+          This site is where I step out of the lab and share what I'm learning, building, and thinking about —
+          from hands-on AI projects you can actually use, to books that shifted how I see the world,
+          to raising my little one with curiosity and intention in an AI-shaped future.
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-num">PhD</div>
+            <div class="stat-label">Mechanical Eng., UIUC</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">2×MS</div>
+            <div class="stat-label">Applied Math &amp; Mech. Eng.</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">&#127942;</div>
+            <div class="stat-label">Best Paper Award</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-links">
+        <a class="about-link-row" href="https://www.youtube.com/@zzzhelin_chen" target="_blank">
+          <span class="about-link-label">&#128249; YouTube &mdash; @zzzhelin_chen</span>
+          <span class="about-link-arrow">&#8594;</span>
+        </a>
+        <a class="about-link-row" href="https://medium.com/@zhelinchen91" target="_blank">
+          <span class="about-link-label">&#9999;&#65039; Medium Articles</span>
+          <span class="about-link-arrow">&#8594;</span>
+        </a>
+        <a class="about-link-row" href="https://www.linkedin.com/in/zhelin-chen/" target="_blank">
+          <span class="about-link-label">&#128188; LinkedIn &mdash; zhelin-chen</span>
+          <span class="about-link-arrow">&#8594;</span>
+        </a>
+        <a class="about-link-row" href="/cdn-cgi/l/email-protection#f08a98959c999e9398959ec9c1b0979d91999cde939f9d">
+          <span class="about-link-label">&#128140; <span class="__cf_email__" data-cfemail="f68c9e939a9f98959e9398cfc7b6919b979f9ad895999b">[email&#160;protected]</span></span>
+          <span class="about-link-arrow">&#8594;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <footer>
+    <div class="footer-left">&copy; 2026 Zhelin Chen. Built with intention.</div>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@zzzhelin_chen" target="_blank">YouTube</a>
+      <a href="https://medium.com/@zhelinchen91" target="_blank">Medium</a>
+      <a href="https://www.linkedin.com/in/zhelin-chen/" target="_blank">LinkedIn</a>
+      <a href="/cdn-cgi/l/email-protection#c5bfada0a9acaba6ada0abfcf485a2a8a4aca9eba6aaa8">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  document.getElementById('nl-btn').addEv
